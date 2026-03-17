@@ -2,139 +2,167 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Leandro | Euro Diesel</title>
     <style>
         :root {
-            --primary: #d4af37; /* Dourado Premium */
-            --bg: #0a0a0a;
-            --card-bg: #1a1a1a;
-            --text: #ffffff;
-            --secondary: #888888;
+            --gold: #D4AF37;
+            --dark: #0a0a0a;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
-        body {
+        body, html {
             margin: 0;
             padding: 0;
+            height: 100%;
+            background-color: var(--dark);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background-color: var(--bg);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            color: var(--text);
+            overflow: hidden; /* Evita rolagem desnecessária no celular */
         }
 
-        .card {
-            background: var(--card-bg);
-            width: 350px;
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 10px rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Detalhe de luxo no topo */
-        .card::before {
-            content: '';
-            position: absolute;
+        /* Fundo com degradê de luxo */
+        .bg-gradient {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            height: 100%;
+            background: radial-gradient(circle at top right, #1a1a1a, #000);
+            z-index: -1;
         }
 
-        .logo-area {
-            font-size: 1.2rem;
-            letter-spacing: 4px;
-            color: var(--primary);
-            margin-bottom: 30px;
-            font-weight: bold;
+        .container {
+            width: 90%;
+            max-width: 400px;
+            height: 90vh; /* Ocupa quase a tela toda verticalmente */
+            background: var(--glass);
+            border: 1px solid rgba(211, 175, 55, 0.3);
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+        }
+
+        .header { text-align: center; }
+
+        .logo-text {
+            color: var(--gold);
+            letter-spacing: 6px;
+            font-size: 0.8rem;
+            font-weight: 300;
+            margin-bottom: 20px;
             text-transform: uppercase;
         }
 
-        h1 {
-            font-size: 1.8rem;
-            margin: 10px 0 5px 0;
-            letter-spacing: 1px;
+        .profile-name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 5px 0;
+            letter-spacing: 2px;
         }
 
-        .job-title {
-            color: var(--secondary);
+        .profile-job {
+            color: var(--gold);
             font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
+            letter-spacing: 3px;
+            font-weight: 400;
         }
 
-        .contact-link {
-            display: block;
-            background: transparent;
-            color: var(--text);
+        .actions {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border-radius: 12px;
+            text-align: center;
             text-decoration: none;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            box-sizing: border-box;
+            display: block;
+            text-transform: uppercase;
         }
 
-        .contact-link:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            background: rgba(212, 175, 55, 0.05);
-            transform: translateY(-2px);
+        /* Botão Principal WhatsApp */
+        .btn-primary {
+            background: linear-gradient(135deg, #D4AF37, #B8860B);
+            color: #000;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
         }
 
-        .whatsapp-btn {
-            background: var(--primary);
-            color: #000 !important;
-            border: none;
-            margin-top: 20px;
+        /* Botões Secundários */
+        .btn-outline {
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
         }
 
-        .whatsapp-btn:hover {
-            background: #f1c40f;
-            transform: scale(1.05);
+        .btn:active {
+            transform: scale(0.98);
+            opacity: 0.8;
         }
 
-        .footer-brand {
-            margin-top: 40px;
+        .footer-info {
+            text-align: center;
+            color: rgba(255,255,255,0.4);
             font-size: 0.7rem;
-            color: var(--secondary);
-            opacity: 0.5;
+            line-height: 1.5;
+        }
+
+        /* Detalhe decorativo */
+        .gold-line {
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+            margin: 20px auto;
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <div class="logo-area">EURO DIESEL</div>
-        
-        <h1>LEANDRO</h1>
-        <p class="job-title">Gerente Financeiro</p>
+    <div class="bg-gradient"></div>
 
-        <hr style="border: 0; border-top: 1px solid rgba(212, 175, 55, 0.2); margin-bottom: 25px;">
+    <div class="container">
+        <div class="header">
+            <div class="logo-text">EURO DIESEL</div>
+            <div class="gold-line"></div>
+            <h1 class="profile-name">LEANDRO</h1>
+            <p class="profile-job">Gerente Financeiro</p>
+        </div>
 
-        <a href="https://wa.me/5569981128233" class="contact-link whatsapp-btn" target="_blank">
-            WHATSAPP CORPORATIVO
-        </a>
+        <div class="actions">
+            <a href="https://wa.me/5569981128233" class="btn btn-primary">
+                Falar no WhatsApp
+            </a>
+            
+            <a href="https://www.google.com/maps/place/Euro+Diesel+Especializada+linha+Volvo+Scania+Mecatronica+Inje%C3%A7%C3%A3o+Eletronica+Catalizador+Modulos+Centrais+Vilhena+RO/data=!4m2!3m1!1s0x0:0xe56ce9eadefe2e90?sa=X&ved=1t:2428&ictx=111" class="btn btn-outline" target="_blank">
+                Localização Euro Diesel
+            </a>
 
-        <a href="https://www.google.com/maps/place/Euro+Diesel+Especializada+linha+Volvo+Scania+Mecatronica+Inje%C3%A7%C3%A3o+Eletronica+Catalizador+Modulos+Centrais+Vilhena+RO/data=!4m2!3m1!1s0x0:0xe56ce9eadefe2e90?sa=X&ved=1t:2428&ictx=111" class="contact-link" target="_blank">
-            LOCALIZAÇÃO DA EMPRESA
-        </a>
+            <a href="mailto:leandro@eurodiesel.com" class="btn btn-outline">
+                Enviar E-mail
+            </a>
+        </div>
 
-        <a href="mailto:seuemail@exemplo.com" class="contact-link">
-            ENVIAR E-MAIL
-        </a>
-
-        <div class="footer-brand">
-            &copy; 2026 EURO DIESEL - EXCELÊNCIA EM COMBUSTÍVEIS
+        <div class="footer-info">
+            ESTRADA DO DIESEL, RO<br>
+            © 2026 EURO DIESEL - PREMIUM SOLUTIONS
         </div>
     </div>
 
